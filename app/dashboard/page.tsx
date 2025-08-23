@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
-import { useAuth } from "@/context/auth-context"
-import { Button } from "@/components/ui/Button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card"
+import { useAuth } from "../../context/auth-context"
+import { Button } from "../../frontend/src/components/ui/Button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../frontend/src/components/ui/Card"
 import { User, Mail, LogOut, Trash2 } from "lucide-react"
-import Message from "@/components/Message"
+import Message from "../../frontend/src/components/Message"
 
 export default function DashboardPage() {
   const { user, loading, logout, deleteAccount } = useAuth()
