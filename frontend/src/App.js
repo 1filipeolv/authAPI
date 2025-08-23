@@ -8,7 +8,7 @@ import Dashboard from "./pages/Dashboard"
 import Message from "./components/Message"
 import styles from "./App.module.css"
 
-const ProtectedRoute = ({ children }) => {
+ const ProtectedRoute = ({ children }) => {
   const { user } = useAuth()
   const loading = user === undefined 
 
