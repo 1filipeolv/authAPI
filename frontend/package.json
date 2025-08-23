@@ -14,6 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "vercel-build": "npm run build",
     "tailwind:init": "tailwindcss init -p",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
