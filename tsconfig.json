@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["frontend/src/*"],
+      "@/*": ["*"],
       "@/components/*": ["frontend/src/components/*"],
       "@/context/*": ["context/*"]
     }
