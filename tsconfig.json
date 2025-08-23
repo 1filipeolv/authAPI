@@ -15,11 +15,18 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["app/*"],
+      "@/*": ["frontend/src/*"],
       "@/components/*": ["frontend/src/components/*"],
       "@/context/*": ["context/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "app/**/*", "context/**/*", "frontend/src/components/**/*"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "app/**/*",
+    "context/**/*",
+    "frontend/src/**/*"
+  ],
   "exclude": ["node_modules"]
 }
