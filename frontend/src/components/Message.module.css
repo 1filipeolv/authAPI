@@ -1,0 +1,125 @@
+.message {
+  margin-bottom: 20px;
+  border-radius: var(--radius);
+  padding: 16px;
+  border: 1px solid;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.text {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  opacity: 0.7;
+}
+
+.closeButton:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.success {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: var(--accent);
+  color: #065f46;
+}
+
+.success .text {
+  color: #065f46;
+}
+
+.success .closeButton {
+  color: #065f46;
+}
+
+.success .closeButton:hover {
+  background-color: rgba(16, 185, 129, 0.2);
+}
+
+.error {
+  background-color: rgba(220, 38, 38, 0.1);
+  border-color: var(--destructive);
+  color: #991b1b;
+}
+
+.error .text {
+  color: #991b1b;
+}
+
+.error .closeButton {
+  color: #991b1b;
+}
+
+.error .closeButton:hover {
+  background-color: rgba(220, 38, 38, 0.2);
+}
+
+.info {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.info .text {
+  color: #1e40af;
+}
+
+.info .closeButton {
+  color: #1e40af;
+}
+
+.info .closeButton:hover {
+  background-color: rgba(59, 130, 246, 0.2);
+}
+
+.warning {
+  background-color: rgba(245, 158, 11, 0.1);
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+.warning .text {
+  color: #92400e;
+}
+
+.warning .closeButton {
+  color: #92400e;
+}
+
+.warning .closeButton:hover {
+  background-color: rgba(245, 158, 11, 0.2);
+}
