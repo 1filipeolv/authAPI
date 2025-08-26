@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState(null)
 
-  const API_URL = "http://localhost:5000/api/auth"
+  const API_URL = "https://authapiback.vercel.app/api/auth"
 
   const loadUser = async () => {
     const token = localStorage.getItem("accessToken")
