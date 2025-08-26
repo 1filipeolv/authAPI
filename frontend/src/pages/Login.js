@@ -2,14 +2,15 @@
 
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 import Message from "../components/Message"
 import styles from "./Register.module.css"
-import api from "../api"
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" })
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
+  const { login } = useAuth() 
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -27,13 +28,11 @@ const Login = () => {
     setMessage(null)
 
     try {
-      const response = await api.post("/login", formData)
-      if (response.data.success) {
-        localStorage.setItem("accessToken", response.data.accessToken)
-        setMessage({ text: response.data.message, type: "success" })
-        setTimeout(() => navigate("/dashboard"), 1000)
+      const result = await login({ email: formData.email, password: formData.password })
+      if (result.success) {
+        navigate("/dashboard") // redireciona só se login for bem-sucedido
       } else {
-        setMessage({ text: response.data.message, type: "error" })
+        setMessage({ text: result.message, type: "error" })
       }
     } catch (err) {
       console.error(err)
