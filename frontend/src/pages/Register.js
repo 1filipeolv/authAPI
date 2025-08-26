@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { useAuth } from "../context/AuthContext"
 import Message from "../components/Message"
 import styles from "./Register.module.css"
 import api from "../api"
@@ -16,15 +15,10 @@ const Register = () => {
   })
   const [message, setMessage] = useState(null)
   const [loading, setLoading] = useState(false)
-
-  const { register } = useAuth()
   const navigate = useNavigate()
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
@@ -49,26 +43,20 @@ const Register = () => {
     setMessage(null)
 
     try {
-      const directResponse = await api.post("/register", {
-        name: formData.name,
-        email: formData.email,
-        password: formData.password
-      })
-      console.log(directResponse.data)
-
-      const result = await register({
+      const response = await api.post("/auth/register", {
         name: formData.name,
         email: formData.email,
         password: formData.password,
       })
 
-      if (result.success) {
-        setMessage({ text: result.message, type: "success" })
+      if (response.data.success) {
+        setMessage({ text: response.data.message, type: "success" })
         setTimeout(() => navigate("/dashboard"), 1000)
       } else {
-        setMessage({ text: result.message, type: "error" })
+        setMessage({ text: response.data.message, type: "error" })
       }
-    } catch {
+    } catch (err) {
+      console.error(err)
       setMessage({ text: "Erro interno do servidor", type: "error" })
     } finally {
       setLoading(false)
