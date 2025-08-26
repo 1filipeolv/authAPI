@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import Message from "../components/Message"
 import styles from "./Register.module.css"
+import api from "../api"
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -48,6 +49,13 @@ const Register = () => {
     setMessage(null)
 
     try {
+      const directResponse = await api.post("/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password
+      })
+      console.log(directResponse.data)
+
       const result = await register({
         name: formData.name,
         email: formData.email,
