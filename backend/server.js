@@ -1,7 +1,6 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
-require("dotenv").config()
 
 const authRoutes = require("./routes/auth")
 
@@ -9,9 +8,9 @@ const app = express()
 
 app.use(
   cors({
-    origin: "https://auth-api-bay.vercel.app/login",
+    origin: "*",
     credentials: true,
-  }),
+  })
 )
 app.use(express.json())
 
