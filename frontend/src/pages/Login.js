@@ -27,7 +27,7 @@ const Login = () => {
     setMessage(null)
 
     try {
-      const response = await api.post("/auth/login", formData)
+      const response = await api.post("/login", formData)
       if (response.data.success) {
         localStorage.setItem("accessToken", response.data.accessToken)
         setMessage({ text: response.data.message, type: "success" })
