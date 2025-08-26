@@ -47,13 +47,15 @@ export const AuthProvider = ({ children }) => {
   }
 
   const register = async (data) => {
-    try {
-      const res = await axios.post(`${API_URL}/register`, data)
-      return res.data
-    } catch (err) {
-      return { success: false, message: err.response?.data?.message || "Erro no registro" }
-    }
+const register = async (data) => {
+  try {
+    const res = await axios.post(`${API_URL}/register`, data)
+    return res.data
+  } catch (err) {
+    const message = err.response?.data?.message || "Erro no registro"
+    return { success: false, message }
   }
+}
 
   const logout = async () => {
     try { await axios.post(`${API_URL}/logout`) } catch {}
