@@ -43,7 +43,7 @@ const Register = () => {
     setMessage(null)
 
     try {
-      const response = await api.post("/auth/register", {
+      const response = await api.post("/register", {
         name: formData.name,
         email: formData.email,
         password: formData.password,
