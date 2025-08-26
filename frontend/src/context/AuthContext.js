@@ -42,19 +42,21 @@ export const AuthProvider = ({ children }) => {
       }
       return res.data
     } catch (err) {
+      console.error("Erro no login:", err.response?.data || err)
       return { success: false, message: err.response?.data?.message || "Erro no login" }
     }
   }
 
-const register = async (data) => {
-  try {
-    const res = await axios.post(`${API_URL}/register`, data)
-    return res.data
-  } catch (err) {
-    const message = err.response?.data?.message || "Erro no registro"
-    return { success: false, message }
+  const register = async (data) => {
+    try {
+      const res = await axios.post(`${API_URL}/register`, data)
+      return res.data
+    } catch (err) {
+      console.error("Erro no registro:", err.response?.data || err)
+      const message = err.response?.data?.message || "Erro no registro"
+      return { success: false, message }
+    }
   }
-}
 
   const logout = async () => {
     try { await axios.post(`${API_URL}/logout`) } catch {}
@@ -74,6 +76,7 @@ const register = async (data) => {
       setUser(null)
       return res.data
     } catch (err) {
+      console.error("Erro ao deletar conta:", err.response?.data || err)
       return { success: false, message: err.response?.data?.message || "Erro ao deletar conta" }
     }
   }
