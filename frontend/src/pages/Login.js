@@ -2,16 +2,14 @@
 
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { useAuth } from "../context/AuthContext"
 import Message from "../components/Message"
-import styles from "./Register.module.css" 
+import styles from "./Register.module.css"
+import api from "../api"
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" })
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
-
-  const { login } = useAuth()
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -29,13 +27,16 @@ const Login = () => {
     setMessage(null)
 
     try {
-      const result = await login({ email: formData.email, password: formData.password })
-      if (result.success) {
-        navigate("/dashboard")
+      const response = await api.post("/auth/login", formData)
+      if (response.data.success) {
+        localStorage.setItem("accessToken", response.data.accessToken)
+        setMessage({ text: response.data.message, type: "success" })
+        setTimeout(() => navigate("/dashboard"), 1000)
       } else {
-        setMessage({ text: result.message, type: "error" })
+        setMessage({ text: response.data.message, type: "error" })
       }
-    } catch {
+    } catch (err) {
+      console.error(err)
       setMessage({ text: "Erro interno do servidor", type: "error" })
     } finally {
       setLoading(false)
@@ -53,26 +54,12 @@ const Login = () => {
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="seu@email.com"
-            />
+            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} placeholder="seu@email.com" />
           </div>
 
           <div className={styles.inputGroup}>
             <label htmlFor="password">Senha</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Sua senha"
-            />
+            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="Sua senha" />
           </div>
 
           <button type="submit" className={styles.submitButton} disabled={loading}>
