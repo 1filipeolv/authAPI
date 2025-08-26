@@ -10,7 +10,8 @@ const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" })
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
-  const { login } = useAuth() 
+
+  const { login } = useAuth()
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -30,12 +31,12 @@ const Login = () => {
     try {
       const result = await login({ email: formData.email, password: formData.password })
       if (result.success) {
-        navigate("/dashboard") // redireciona só se login for bem-sucedido
+        setMessage({ text: result.message, type: "success" })
+        navigate("/dashboard") // redireciona direto para o dashboard
       } else {
         setMessage({ text: result.message, type: "error" })
       }
-    } catch (err) {
-      console.error(err)
+    } catch {
       setMessage({ text: "Erro interno do servidor", type: "error" })
     } finally {
       setLoading(false)
@@ -53,12 +54,26 @@ const Login = () => {
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} placeholder="seu@email.com" />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="seu@email.com"
+            />
           </div>
 
           <div className={styles.inputGroup}>
             <label htmlFor="password">Senha</label>
-            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} placeholder="Sua senha" />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Sua senha"
+            />
           </div>
 
           <button type="submit" className={styles.submitButton} disabled={loading}>
