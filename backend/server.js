@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
+require("dotenv").config() 
 
 const authRoutes = require("./routes/auth")
 
@@ -8,13 +9,23 @@ const app = express()
 
 app.use(
   cors({
-    origin: "*",
+    origin: "*", 
     credentials: true,
   })
 )
+
 app.use(express.json())
 
 app.use("/api/auth", authRoutes)
+
+app.use((err, req, res, next) => {
+  console.error("[Erro Global]:", err)
+  res.status(500).json({
+    success: false,
+    message: "Erro interno do servidor",
+    error: err.message,
+  })
+})
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -22,7 +33,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.log("MongoDB connection error:", err))
+  .catch((err) => console.error("MongoDB connection error:", err))
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
